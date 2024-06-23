@@ -1,10 +1,14 @@
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - target=dev
     tty: true
     volumes:
-      - ./src/:/mnt
-
+      - ./src/:/app
     ports:
-      - 18080:18080
+      - 18080:80
+        #entrypoint: tail -f /dev/null
 
