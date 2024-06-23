@@ -1,0 +1,40 @@
+version: "3"
+
+vars: { DOCKER_TAG: 'latest' }
+
+tasks:
+  default:
+    desc: show commands
+    cmds:
+      - task -l --sort none
+  build:
+    desc: build docker image to deploy
+    cmds:
+      - docker build -t higakinn/gotodo:{{.DOCKER_TAG}} --target deploy ./
+  build-local:
+    desc: build docker image to local development
+    cmds:
+      - docker compose build --no-cache
+  up:
+    desc: do docker compose up with hot reload
+    cmds:
+      - docker compose up -d
+  down:
+    desc: do docker compose down
+    cmds:
+      - docker compose down
+  logs: 
+    desc: tail docker compose logs 
+    cmds:
+      - docker compose logs -f
+
+  ps:
+    desc: check container status
+    cmds:
+      - docker compose ps
+
+  test:
+    desc: execute tests
+    cmds:
+      - docker compose run app bash -c "go test -race --shuffle=on ./..."
+
