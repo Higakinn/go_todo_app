@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    tty: true
+    volumes:
+      - ./src/:/mnt
+
+    ports:
+      - 18080:18080
+
