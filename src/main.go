@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"net"
-	"os"
-	"log"
 	"context"
-	
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+	"os"
+
 	"golang.org/x/sync/errgroup"
 )
 
@@ -22,10 +22,10 @@ func main() {
 		log.Fatalf("failed to listen port %s: %v", p, err)
 	}
 	fmt.Println("process start!!")
-	if err := run(context.Background(),l); err != nil {
+	if err := run(context.Background(), l); err != nil {
 		log.Printf("failed to terminated server: %v", err)
 		os.Exit(1)
-	}	
+	}
 }
 
 func run(ctx context.Context, l net.Listener) error {
@@ -38,18 +38,17 @@ func run(ctx context.Context, l net.Listener) error {
 	eg, ctx := errgroup.WithContext(ctx)
 	//
 
-	eg.Go(func()  error {
+	eg.Go(func() error {
 		if err := s.Serve(l); err != nil && err != http.ErrServerClosed {
 			log.Printf("failed to close: %+v", err)
-			return err 
+			return err
 		}
 		return nil
 	})
-	<- ctx.Done()
+	<-ctx.Done()
 
 	if err := s.Shutdown(context.Background()); err != nil {
 		log.Printf("failed to shutdown: %+v", err)
 	}
 	return eg.Wait()
 }
-	
