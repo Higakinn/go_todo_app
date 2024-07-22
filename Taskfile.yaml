@@ -10,7 +10,7 @@ tasks:
   build:
     desc: build docker image to deploy
     cmds:
-      - docker build -t higakinn/gotodo:{{.DOCKER_TAG}} --target deploy ./
+      - docker build -t higakinn/gotodo:{{.DOCKER_TAG}} --target deploy -f Dockerfile ./src
   build-local:
     desc: build docker image to local development
     cmds:

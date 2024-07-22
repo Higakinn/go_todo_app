@@ -13,7 +13,7 @@ COPY . .
 RUN go build -trimpath -ldflags "-w -s" -o app
 
 ## deploy stage
-FROM debian:buillseye-slim as deploy
+FROM debian:bullseye-slim as deploy
 
 RUN apt-get update
 
